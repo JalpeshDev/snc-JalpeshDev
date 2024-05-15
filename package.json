@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky",
-    "postinstall": "npm install prisma && prisma generate"
+    "postinstall": "npm install prisma && prisma generate && prisma migrate dev && prisma db seed"
   },
   "dependencies": {
     "@prisma/client": "^5.10.2",
