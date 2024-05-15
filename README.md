@@ -1,44 +1,62 @@
-usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]
-           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
-           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]
-           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
-           [--config-env=<name>=<envvar>] <command> [<args>]
+# NextJS Challenge - Seven Sigma Group
 
-These are common Git commands used in various situations:
+This repository contains a typical NextJS project at Seven Sigma Group.
 
-start a working area (see also: git help tutorial)
-   clone     Clone a repository into a new directory
-   init      Create an empty Git repository or reinitialize an existing one
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) and configured with:
 
-work on the current change (see also: git help everyday)
-   add       Add file contents to the index
-   mv        Move or rename a file, a directory, or a symlink
-   restore   Restore working tree files
-   rm        Remove files from the working tree and from the index
+1. ESLint and Prettier
+2. Git hooks set up with [Husky](https://typicode.github.io/husky/)
+3. NextJS and React specific folders (`pages`, `styles`, and `layouts`)
+4. TypeScript
+5. Tailwind CSS
+Prisma and Docker-Compose with PostgreSQL (only for backend tasks, details below)
 
-examine the history and state (see also: git help revisions)
-   bisect    Use binary search to find the commit that introduced a bug
-   diff      Show changes between commits, commit and working tree, etc
-   grep      Print lines matching a pattern
-   log       Show commit logs
-   show      Show various types of objects
-   status    Show the working tree status
+## Project structure
 
-grow, mark and tweak your common history
-   branch    List, create, or delete branches
-   commit    Record changes to the repository
-   merge     Join two or more development histories together
-   rebase    Reapply commits on top of another base tip
-   reset     Reset current HEAD to the specified state
-   switch    Switch branches
-   tag       Create, list, delete or verify a tag object signed with GPG
+The app has the following structure:
 
-collaborate (see also: git help workflows)
-   fetch     Download objects and refs from another repository
-   pull      Fetch from and integrate with another repository or a local branch
-   push      Update remote refs along with associated objects
+- `components`: React components used across the app.
+- `pages`: NextJS specific pages. The pages should not contain any styles, and be limited to the page-specific logic.
+  All the presentation and business logic should be implemented as a view.
+- `layouts`: Contains the presentation elements for the pages. Can also include data and business logic.
+- `utils`: Helper functions. There can be 3 sub-folders:
+  - `client`: for client-side utils.
+  - `server`: for server-side only.
+  - `common`: for both. Typically only types.
 
-'git help -a' and 'git help -g' list available subcommands and some
-concept guides. See 'git help <command>' or 'git help <concept>'
-to read about a specific subcommand or concept.
-See 'git help git' for an overview of the system.
+### API
+
+You have a NextJS API route available that you can call to fetch all the details.
+
+You can see the code at `src/pages/api/person`
+
+TL;DR:
+- GET endpoint: `api/user?person={Person.PersonA}`
+- Can request values for person A, person B, or person C.
+- Person A returns in one second, person B returns in 3 seconds, person C always fails.
+
+### Prisma, Docker, and PostgreSQL
+
+The repository has Prisma set up, as well as a Docker Compose file that will spin up a
+local PostgreSQL.
+
+**If you're only doing the frontend tasks, you don't need to worry about this at all** (not even
+running Docker Compose or adding a `.env` file) -- all the backend functionality you need is
+hard-coded and ready in the API route.
+
+If you are doing the backend tasks, you have more instructions below.
+
+
+## Prerequisites
+
+To set up the codebase and the required dependencies, simply run `npm install`;
+
+If you're only doing the frontend tasks, that's all you need.
+
+### Additional setup for the backend tasks
+For the backend tasks, you'll need these additional steps:
+
+1. Copy `.env.example` into `.env`. _Note: while NextJS supports both `.env` and `.env.local`, Prisma requires a `.env`_.
+2. Install Docker with Docker Compose in your machine. The easiest way is to install [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+3. Run the services in Docker Compose: `docker compose up`.
+4. Apply the existing migrations to your DB: `prisma migrate dev` ([docs](https://www.prisma.io/docs/orm/reference/prisma-cli-reference#migrate-dev))
