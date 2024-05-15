@@ -25,7 +25,7 @@ const USERS = [
     profilePictureUrl:
       "https://images.squarespace-cdn.com/content/v1/51efe10de4b025019c37bb06/1566986917034-2MGUTZB04MU2GFSPAC10/London-corporate-headshot-photography.jpg",
     name: "PersonB",
-    title: "Full Stack Developerrrrrr",
+    title: "Full Stack Developer",
     followers: 20000,
     following: 1000,
   },
